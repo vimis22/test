@@ -9,7 +9,7 @@ const LoginScreen = ({ navigation }: any) => {
       <TextInput style={styles.inputFieldText} placeholder={'Please enter your UserID'}/>
       <Text style={styles.textInputLabel}>PASSWORD:</Text>
       <TextInput style={styles.inputFieldText} placeholder={'Please enter your Password'} secureTextEntry={true}/>
-      <TouchableOpacity style={styles.buttonContainer} onPress={() => navigation.navigate('RoomListScreen')}>
+      <TouchableOpacity style={styles.buttonContainer} onPress={() => navigation.navigate('RoomlistScreen')}>
         <Text style={styles.buttonText}>ENTER</Text>
       </TouchableOpacity>
       <TouchableOpacity onPress={() => navigation.navigate('SignupScreen')}>

@@ -11,7 +11,7 @@ const SignupScreen = ({ navigation }: any) => {
       <TextInput style={styles.inputFieldText} placeholder={'Please enter your Password'} secureTextEntry={true}/>
       <Text style={styles.textInputLabel}>CONFIRM PASSWORD:</Text>
       <TextInput style={styles.inputFieldText} placeholder={'Please confirm your Password'} secureTextEntry={true}/>
-      <TouchableOpacity style={styles.buttonContainer} onPress={() => navigation.navigate('RoomListScreen')}>
+      <TouchableOpacity style={styles.buttonContainer} onPress={() => navigation.navigate('RoomlistScreen')}>
         <Text style={styles.buttonText}>REGISTER</Text>
       </TouchableOpacity>
       <TouchableOpacity onPress={() => navigation.navigate('LoginScreen')}>

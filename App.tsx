@@ -5,6 +5,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import SplashScreen from './SplashScreen';
 import LoginScreen from './LoginScreen';
 import SignupScreen from './SignupScreen.tsx';
+import RoomlistScreen from './RoomlistScreen.tsx';
 
 const Stack = createStackNavigator();
 
@@ -16,6 +17,7 @@ export default function App() {
           <Stack.Screen name="SplashScreen" component={SplashScreen} />
           <Stack.Screen name="LoginScreen" component={LoginScreen} />
           <Stack.Screen name="SignupScreen" component={SignupScreen} />
+          <Stack.Screen name="RoomlistScreen" component={RoomlistScreen} />
         </Stack.Navigator>
       </NavigationContainer>
     </GestureHandlerRootView>
