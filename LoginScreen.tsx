@@ -22,7 +22,7 @@ const LoginScreen = ({ navigation }: any) => {
 const styles = StyleSheet.create({
   pageContainer: {
     flex: 1,
-    backgroundColor: 'white',
+    backgroundColor: '#330099',
     padding: 20,
   },
   sectionTitle: {
@@ -44,7 +44,7 @@ const styles = StyleSheet.create({
     marginBottom: 5,
   },
   buttonContainer: {
-    backgroundColor: 'white',
+    backgroundColor: '#009930',
     borderRadius: 5,
     padding: 10,
     alignItems: 'center',
