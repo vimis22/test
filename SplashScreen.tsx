@@ -1,11 +1,11 @@
 import React from 'react';
-import {View, Text, StyleSheet} from 'react-native';
+import {Text, StyleSheet, TouchableOpacity} from 'react-native';
 
-const SplashScreen = () => {
+const SplashScreen = ({ navigation }: any) => {
   return (
-    <View style={styles.pageContainer}>
+    <TouchableOpacity style={styles.pageContainer} onPress={() => navigation.navigate('LoginScreen')}>
       <Text style={styles.welcomeTitle}>Chentia</Text>
-    </View>
+    </TouchableOpacity>
   );
 };
 
