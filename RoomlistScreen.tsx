@@ -73,12 +73,12 @@ const styles = StyleSheet.create({
     color: 'grey',
   },
   buttonContainer: {
-    backgroundColor: 'white',
+    backgroundColor: '#330099',
     borderRadius: 5,
     padding: 10,
   },
   buttonText: {
-    color: 'black',
+    color: 'white',
     fontWeight: 'bold',
     fontSize: 30,
   },
