@@ -1,5 +1,6 @@
 import React from 'react';
 import {View, Text, TextInput, TouchableOpacity, StyleSheet} from 'react-native';
+import onGoogleButtonPress from './GoogleLoginHandler.tsx';
 
 const LoginScreen = ({ navigation }: any) => {
   return (
@@ -15,7 +16,7 @@ const LoginScreen = ({ navigation }: any) => {
       <Text style={styles.textInputLabel}>ADDITIONAL LOGIN:</Text>
 
       <View style={styles.additionalLoginContainer}>
-        <Text style={styles.additionalLoginButtons}>GOOGLE</Text>
+        <Text style={styles.additionalLoginButtons} onPress={onGoogleButtonPress}>GOOGLE</Text>
         <Text style={styles.additionalLoginButtons}>FACEBOOK</Text>
       </View>
 
