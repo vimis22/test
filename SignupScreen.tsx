@@ -5,15 +5,20 @@ const SignupScreen = ({ navigation }: any) => {
   return (
     <View style={styles.pageContainer}>
       <Text style={styles.sectionTitle}>SIGNUP</Text>
+
       <Text style={styles.textInputLabel}>USERID:</Text>
       <TextInput style={styles.inputFieldText} placeholder={'Please enter your UserID'}/>
+
       <Text style={styles.textInputLabel}>PASSWORD:</Text>
       <TextInput style={styles.inputFieldText} placeholder={'Please enter your Password'} secureTextEntry={true}/>
+
       <Text style={styles.textInputLabel}>CONFIRM PASSWORD:</Text>
       <TextInput style={styles.inputFieldText} placeholder={'Please confirm your Password'} secureTextEntry={true}/>
+
       <TouchableOpacity style={styles.buttonContainer} onPress={() => navigation.navigate('RoomlistScreen')}>
         <Text style={styles.buttonText}>REGISTER</Text>
       </TouchableOpacity>
+
       <TouchableOpacity onPress={() => navigation.navigate('LoginScreen')}>
         <Text style={styles.buttonText}>Already have an Account? Login</Text>
       </TouchableOpacity>
@@ -37,7 +42,7 @@ const styles = StyleSheet.create({
   textInputLabel: {
     color: 'white',
     fontSize: 16,
-    marginBottom: 5,
+    marginBottom: 8,
   },
   inputFieldText: {
     backgroundColor: 'white',
