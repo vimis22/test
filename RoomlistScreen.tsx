@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, Text, FlatList, TouchableOpacity, StyleSheet} from 'react-native';
+import {View, Text, FlatList, TouchableOpacity, StyleSheet, RefreshControl} from 'react-native';
 
 const RoomlistScreen = ({navigation}: any) => {
   //Der defineres data som skal stå på siden.
@@ -10,6 +10,11 @@ const RoomlistScreen = ({navigation}: any) => {
     {id: '4', name: 'Room 4', description: 'Conference Meetings'},
     {id: '5', name: 'Room 5', description: 'Conference Meetings'},
   ];
+  const [refresh, setRefresh] = React.useState(false);
+  const onRefresh = () => {
+    setRefresh(true);
+    setTimeout(() => {setRefresh(false);}, 3000);
+  };
   const renderRoomsContainer = ({item}: any) => (
     <View style={styles.groupInfoContainer}>
       <View style={styles.groupIcon}/>
@@ -30,6 +35,7 @@ const RoomlistScreen = ({navigation}: any) => {
       <FlatList
         data={rooms} renderItem={renderRoomsContainer}
         keyExtractor={item => item.id}
+        refreshControl={<RefreshControl refreshing={refresh} onRefresh={onRefresh}/> }
       />
     </View>
   );

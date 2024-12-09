@@ -1,26 +1,26 @@
-import React from 'react';
-import {Text, StyleSheet, TouchableOpacity} from 'react-native';
+import React, {useEffect} from 'react';
+import {StyleSheet, Text, TouchableOpacity} from 'react-native';
 import auth from '@react-native-firebase/auth';
-import {useEffect} from 'react';
-const SplashScreen = ({ navigation }: any) => {
-  const displaySplashSeconds = 3000;
 
+const SplashScreen = ({navigation}: any) => {
   useEffect(() => {
     const checkUserLogin = async () => {
-      setTimeout(()=>{
-        const currentUser = auth().currentUser;
-        if (currentUser) {
-          navigation.navigate('RoomlistScreen');
+      return auth().onAuthStateChanged(user => {
+        if (user) {
+          navigation.replace('RoomlistScreen'); // Naviger til RoomlistScreen hvis logget ind
         } else {
-          navigation.navigate('LoginScreen');
+          navigation.replace('LoginScreen'); // Naviger til LoginScreen hvis ikke logget ind
         }
-      }, displaySplashSeconds);
+      });
     };
+
     checkUserLogin();
   }, [navigation]);
 
   return (
-    <TouchableOpacity style={styles.pageContainer} onPress={() => navigation.navigate('LoginScreen')}>
+    <TouchableOpacity
+      style={styles.pageContainer}
+      onPress={() => navigation.navigate('LoginScreen')}>
       <Text style={styles.welcomeTitle}>Chentia</Text>
     </TouchableOpacity>
   );
