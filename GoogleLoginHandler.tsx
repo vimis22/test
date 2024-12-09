@@ -1,20 +1,18 @@
 import { GoogleSignin } from '@react-native-google-signin/google-signin';
-import auth from '@react-native-firebase/auth';
+import auth, {FirebaseAuthTypes} from '@react-native-firebase/auth';
+import UserCredential = FirebaseAuthTypes.UserCredential;
 
-// Her har jeg fuldt en Youtube video.
-// https://www.youtube.com/watch?v=J9qDaFTP9ao
+// Konfiguration af Google Sign-In
 GoogleSignin.configure({
   webClientId: '502961112347-ams9g0di1c2ioisbh5q97iarteha4qh5.apps.googleusercontent.com', // Din Web Client ID
 });
 
-// @ts-ignore
-//Koden er taget fra denne kilde: https://rnfirebase.io/auth/social-auth
-async function onGoogleButtonPress(): Promise<auth.UserCredential> {
+async function onGoogleButtonPress(): Promise<UserCredential> {
   try {
-    // Først starter jeg med at se om den har altså hasPlayServices ved GoogleSignin.
+    // Kontroller, om enheden understøtter Google Play Services
     await GoogleSignin.hasPlayServices({ showPlayServicesUpdateDialog: true });
 
-    // Nu logger brugeren ind og vi får brugerens info.
+    // Log brugeren ind og få brugerinfo
     const userInfo: any = await GoogleSignin.signIn();
 
     // Tjek, om idToken findes
@@ -23,10 +21,10 @@ async function onGoogleButtonPress(): Promise<auth.UserCredential> {
       throw new Error('No ID token found in Google Sign-In response');
     }
 
-    // Her danne Google-Kontoens kredientialer.
+    // Opret Google-kredentialer
     const googleCredential = auth.GoogleAuthProvider.credential(idToken);
 
-    // Brugeren logger ind gennem Firebase
+    // Log brugeren ind via Firebase
     return auth().signInWithCredential(googleCredential);
   } catch (error) {
     console.error('Google Sign-In Error:', error);

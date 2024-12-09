@@ -1,8 +1,68 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {View, Text, TextInput, TouchableOpacity, StyleSheet} from 'react-native';
-import onGoogleButtonPress from './GoogleLoginHandler.tsx';
+import {GoogleSignin} from '@react-native-google-signin/google-signin';
+import { LoginManager, AccessToken } from 'react-native-fbsdk-next';
+import auth from '@react-native-firebase/auth';
 
+GoogleSignin.configure({
+  webClientId: '502961112347-ams9g0di1c2ioisbh5q97iarteha4qh5.apps.googleusercontent.com', // Din Web Client ID
+});
 const LoginScreen = ({ navigation }: any) => {
+  const handleGoogleLogin = async () => {
+    try {
+      // Kontroller, om enheden understøtter Google Play Services
+      await GoogleSignin.hasPlayServices({ showPlayServicesUpdateDialog: true });
+
+      // Log brugeren ind og få brugerinfo
+      const userInfo: any = await GoogleSignin.signIn();
+
+      // Tjek, om idToken findes
+      const idToken = userInfo.idToken;
+      if (!idToken) {
+        throw new Error('No ID token found in Google Sign-In response');
+      }
+
+      // Opret Google-kredentialer
+      const googleCredential = auth.GoogleAuthProvider.credential(idToken);
+
+      // Log brugeren ind via Firebase
+      return auth().signInWithCredential(googleCredential);
+    } catch (error) {
+      console.error('Google Sign-In Error:', error);
+      throw error;
+    }
+  };
+
+  const handleFacebookLogin = async () => {
+    try {
+      const result = await LoginManager.logInWithPermissions(['public_profile', 'email']);
+      if (result.isCancelled) {
+        console.log('User cancelled Facebook login');
+        return;
+      }
+      const data = await AccessToken.getCurrentAccessToken();
+      if (!data) {
+        console.log('Something went wrong obtaining Facebook access token');
+        return;
+      }
+      const facebookCredential = auth.FacebookAuthProvider.credential(data.accessToken);
+      await auth().signInWithCredential(facebookCredential);
+      navigation.replace('RoomlistScreen'); // Naviger til RoomlistScreen efter login
+    } catch (error) {
+      console.error('Facebook Login Error:', error);
+    }
+  };
+
+  useEffect(() => {
+    // Tjek om brugeren allerede er logget ind
+    const unsubscribe = auth().onAuthStateChanged(user => {
+      if (user) {
+        navigation.replace('RoomlistScreen');
+      }
+    });
+    return unsubscribe;
+  }, [navigation]);
+
   return (
     <View style={styles.pageContainer}>
       <Text style={styles.sectionTitle}>LOGIN</Text>
@@ -16,8 +76,8 @@ const LoginScreen = ({ navigation }: any) => {
       <Text style={styles.textInputLabel}>ADDITIONAL LOGIN:</Text>
 
       <View style={styles.additionalLoginContainer}>
-        <Text style={styles.additionalLoginButtons} onPress={onGoogleButtonPress}>GOOGLE</Text>
-        <Text style={styles.additionalLoginButtons}>FACEBOOK</Text>
+        <Text style={styles.additionalLoginButtons} onPress={handleGoogleLogin}>GOOGLE</Text>
+        <Text style={styles.additionalLoginButtons} onPress={handleFacebookLogin}>FACEBOOK</Text>
       </View>
 
       <TouchableOpacity style={styles.buttonContainer} onPress={() => navigation.navigate('RoomlistScreen')}>
